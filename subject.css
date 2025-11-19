@@ -101,3 +101,28 @@ h1,
 h3 {
   font-family: "Zen Antique";
 }
+/* *** 行動裝置 App 模式響應式調整 (Media Query) *** */
+@media (max-width: 768px) {
+  .main-content {
+    /* 在小螢幕上，讓預覽區和側邊欄垂直堆疊 */
+    flex-direction: column;
+  }
+
+  #flctn {
+    /* 預覽區佔滿行動裝置寬度 */
+    width: 100%;
+    min-height: 60vh; /* 確保預覽區有足夠的高度 */
+  }
+
+  aside {
+    /* 側邊欄變成底部的選單，佔滿全寬 */
+    width: 100%;
+    max-height: 40vh; /* 限制高度，防止佔滿全螢幕 */
+    border-top: 1px solid #ccc;
+    overflow-y: auto; /* 允許選單內容滾動 */
+  }
+
+  header {
+    height: 60px; /* App 標題列通常較矮 */
+  }
+}

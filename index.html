@@ -80,24 +80,52 @@
       </aside>
     </div>
     <script>
-      // 註冊 Service Worker
+      // --- PWA Service Worker 註冊碼 (保留) ---
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", function () {
           navigator.serviceWorker.register("/sw.js").then(
             function (registration) {
-              // 註冊成功
               console.log(
-                "ServiceWorker registration successful with scope: ",
+                "ServiceWorker registration successful: ",
                 registration.scope
               );
             },
             function (err) {
-              // 註冊失敗
               console.log("ServiceWorker registration failed: ", err);
             }
           );
         });
       }
+
+      // --- 新增：選單展開/收合功能 (手風琴效果) ---
+      const menuItems = document.querySelectorAll(".has-submenu");
+      menuItems.forEach((item) => {
+        item.addEventListener("click", function (event) {
+          event.stopPropagation();
+          menuItems.forEach((otherItem) => {
+            if (otherItem !== this) {
+              otherItem.classList.remove("active");
+            }
+          });
+          this.classList.toggle("active");
+        });
+      });
+
+      // --- 新增：圖片切換功能 ---
+      // 確保 ID 是 #preview-img (與 HTML 中的 ID 匹配)
+      const previewImage = document.getElementById("preview-img");
+      const itemImages = document.querySelectorAll(".item-img");
+
+      itemImages.forEach((img) => {
+        img.addEventListener("click", function (event) {
+          event.stopPropagation();
+          // 使用 getAttribute 讀取 data-preview 屬性
+          const previewSrc = this.getAttribute("data-preview");
+          if (previewImage && previewSrc) {
+            previewImage.src = previewSrc;
+          }
+        });
+      });
     </script>
   </body>
 </html>
